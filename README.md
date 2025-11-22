@@ -11,147 +11,177 @@ Ein einfaches PowerShell-Script zum Auslesen des im System hinterlegten Windows-
 ## 📘 Übersicht
 
 Dieses Repository stellt ein PowerShell-Script zur Verfügung, das den lokal gespeicherten Windows 10/11 Product Key direkt aus der Registry ausliest.  
-Es ist schlank, sicher und benötigt keinerlei zusätzliche Software.
+Einfach die Datei herunterladen und lokal speichern.
+
+# 🔑 Read Windows 10/11 Product Key
+A simple PowerShell script to read the Windows product key stored on the system.
+
+![PowerShell](https://img.shields.io/badge/PowerShell-Script-blue?logo=powershell&style=flat)
+![Windows](https://img.shields.io/badge/Windows-10/11-0078D6?logo=windows&style=flat)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Stable-success)
 
 ---
 
-## 🗂 Inhaltsverzeichnis
+## 📘 Overview
 
-- [Beschreibung](#-beschreibung)
-- [Download](#-download)
-- [Voraussetzungen](#-voraussetzungen)
-- [Installation](#️-installation)
-- [Nutzung](#-nutzung)
-- [Häufige Fehler & Lösungen](#-häufige-fehler--lösungen)
-- [FAQ](#-faq)
-- [Screenshots](#-screenshots)
-- [Sicherheitshinweise](#-sicherheitshinweise)
-- [Lizenz](#-lizenz)
+This repository provides a PowerShell script that reads the locally stored Windows 10/11 product key directly from the Registry.  
+It is lightweight, safe, and requires no additional software.
 
 ---
 
-## 📝 Beschreibung
+## 🗂 Table of Contents
 
-Dieses Script liest den Windows-Produktschlüssel aus der Registry aus und zeigt ihn direkt im PowerShell-Terminal an.  
-Es verändert **keinerlei** Systemeinstellungen und schreibt **nichts** in die Registry.
+- [Description](#description)
+- [Download](#download)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Common Errors & Solutions](#common-errors--solutions)
+- [FAQ](#faq)
+- [Security Notes](#security-notes)
+- [License](#license)
 
-Typische Einsatzfälle:
+---
 
-- Dokumentation des Produktkeys  
-- Sichern vor einer Neuinstallation  
-- OEM-/Gerätewechsel überprüfen  
+## 📝 Description
+
+This script reads the Windows product key from the Registry and outputs it directly to the PowerShell console.  
+It does **not** change any system settings and **does not** write anything to the Registry.
+
+Typical use cases:
+
+- Documenting the product key
+- Backing it up before a reinstall
+- Verifying OEM/device transfers
 
 ---
 
 ## ⬇️ Download
 
-Datei im Repository:
+File in this repository:
 
-read_win11_product_key.ps1
-
+`read_win11_product_key.ps1`
 
 ---
 
-## ✔️ Voraussetzungen
+## ✔️ Requirements
 
-- Windows 10 oder Windows 11  
-- PowerShell (mind. Version 5, Standard bei Windows)
+- Windows 10 or Windows 11  
+- PowerShell (minimum version 5, default on Windows)
 
 ---
 
 ## 🛠️ Installation
 
-Keine Installation nötig.  
-Einfach die Datei herunterladen und lokal speichern.
+No installation required.  
+Just download the file and save it locally.
 
 ---
 
-## ▶️ Nutzung
+## ▶️ Usage
 
-1. PowerShell öffnen  
-2. Ordner wechseln, in dem das Script liegt:
+1. Open PowerShell
+2. Change to the folder where the script is located:
 
 ```powershell
-cd C:\Users\<USERNAME>\Downloads```
-Script ausführen:
+cd C:\Users\<USERNAME>\Downloads
+```
+Run the script:
+
+```powershell
+.\read_win11_product_key.ps1
+```
+If the system allows script execution, the product key will be displayed.
+
+## ❗ Common Errors & Solutions
+Because Windows PowerShell restricts scripts for security reasons, downloaded scripts are often blocked.
+Below are common errors and how to resolve them.
+
+### ❌ Error 1: “Script execution is disabled”
+Example message:
 
 ```
-.\read_win11_product_key.ps1```
-Wenn das System Skripte zulässt, wird der Product Key direkt angezeigt.
+The file ... cannot be loaded because running scripts is disabled on this system.
+```
+### ✅ Solution:
 
-## ❗ Häufige Fehler & Lösungen
-Da Windows PowerShell aus Sicherheitsgründen einschränkt, werden Skripte häufig blockiert.
-Hier findest du alle typischen Fehler + Lösungen.
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
-### ❌ Fehler 1: „Die Ausführung von Skripts ist deaktiviert“
-Fehlermeldung (Beispiel):
+Then run again:
+
+```powershell
+.\read_win11_product_key.ps1
+```
+
+### ❌ Error 2: “The file is not digitally signed”
+Example message:
 
 ```
-Die Datei ... kann nicht geladen werden, da die Ausführung von Skripts auf diesem System deaktiviert ist.
+The file ... is not digitally signed. You cannot run this script on the current system.
 ```
-### ✅ Lösung:
 
-```Set-ExecutionPolicy RemoteSigned -Scope CurrentUser```
+### ✅ Solution 1 — less restrictive:
 
-Danach erneut:
+```powershell
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+```
 
-```.\read_win11_product_key.ps1```
+### ✅ Solution 2 — maximum compatibility (no prompts):
 
-### ❌ Fehler 2: „Die Datei ist nicht digital signiert“
-Fehlermeldung (Beispiel):
-
-```Die Datei ... ist nicht digital signiert. Sie können dieses Skript nicht ausführen.```
-
-### ✅ Lösung 1 – weniger restriktiv:
-
-```Set-ExecutionPolicy Unrestricted -Scope CurrentUser```
-
-### ✅ Lösung 2 – maximale Kompatibilität (keine Rückfragen):
-
-```Set-ExecutionPolicy Bypass -Scope CurrentUser```
+```powershell
+Set-ExecutionPolicy Bypass -Scope CurrentUser
+```
 
 
-### ❌ Jedes Mal erscheint eine Bestätigungsabfrage („[J] Ja / [N] Nein“)
-Ursache:
-Windows blockiert heruntergeladene Dateien (Zone.Identifier).
+### ❌ You are asked for confirmation every time (“[Y] Yes / [N] No”)
+Cause:
+Windows may block downloaded files by setting the Zone.Identifier.
 
-### ✅ Lösung A – Datei einmalig entsperren:
+### ✅ Solution A — unlock the file once:
 
-```Unblock-File .\read_win11_product_key.ps1```
+```powershell
+Unblock-File .\read_win11_product_key.ps1
+```
 
-### ✅ Lösung B – Keine Rückfragen mehr für alle Skripte:
-```Set-ExecutionPolicy Bypass -Scope CurrentUser```
+### ✅ Solution B — stop prompts for all scripts:
 
-### ⚠️ Hinweis:
-Bypass entfernt alle Sicherheitsabfragen.
-Nur nutzen, wenn du Skripten vertraust.
+```powershell
+Set-ExecutionPolicy Bypass -Scope CurrentUser
+```
+
+### ⚠️ Note:
+Using `Bypass` removes security prompts. Only use it if you trust the scripts.
 
 ## ❓ FAQ
-Funktioniert das Script auch mit OEM-Keys?
-Ja, sowohl OEM- als auch Retail-Keys werden korrekt ausgelesen.
+Does the script work with OEM keys?
+Yes — both OEM and retail keys are read correctly.
 
-Verändert das Script irgendetwas am System?
-Nein – es liest ausschließlich Registry-Werte.
+Does the script change anything on the system?
+No — it only reads Registry values.
 
-Kann ich damit Cloud-/Microsoft-Account-Keys auslesen?
-Nein. Diese werden nicht im System gespeichert.
+Can it read cloud-/Microsoft-account keys?
+No. Those are not stored on the device.
 
-Muss ich Adminrechte haben?
-Nein, normalerweise nicht.
-Falls die Registry gesperrt wurde: PowerShell als Admin starten.
+Do I need admin rights?
+Usually no. If the Registry is restricted, run PowerShell as Administrator.
 
 
-## 🔐 Sicherheitshinweise
-Das Script selbst ist sicher und nur lesend.
+## 🔐 Security Notes
+The script itself is read-only and safe.
 
-ExecutionPolicy-Änderungen können das System öffnen.
+Changing the ExecutionPolicy can reduce system security.
 
-Du kannst die Standard-Sicherheit jederzeit wieder aktivieren:
+You can restore the default policy at any time:
 
-```Set-ExecutionPolicy Restricted -Scope CurrentUser```
+```powershell
+Set-ExecutionPolicy Restricted -Scope CurrentUser
+```
 
-## 📄 Lizenz
-Dieses Projekt ist unter der MIT License veröffentlicht.
-Frei nutzbar, auch kommerziell.
+## 📄 License
+This project is released under the MIT License.
+Free to use, including commercially.
 
 
