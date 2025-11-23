@@ -1,18 +1,3 @@
-# 🔑 Windows 10/11 Product Key auslesen  
-Ein einfaches PowerShell-Script zum Auslesen des im System hinterlegten Windows-Produktschlüssels.
-
-![PowerShell](https://img.shields.io/badge/PowerShell-Script-blue?logo=powershell&style=flat)
-![Windows](https://img.shields.io/badge/Windows-10/11-0078D6?logo=windows&style=flat)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Stable-success)
-
----
-
-## 📘 Übersicht
-
-Dieses Repository stellt ein PowerShell-Script zur Verfügung, das den lokal gespeicherten Windows 10/11 Product Key direkt aus der Registry ausliest.  
-Einfach die Datei herunterladen und lokal speichern.
-
 # 🔑 Read Windows 10/11 Product Key
 A simple PowerShell script to read the Windows product key stored on the system.
 
